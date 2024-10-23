@@ -1,21 +1,16 @@
 <?php
 
-/**
- * @file
- * The PHP page that serves all page requests on a Drupal installation.
- *
- * The routines here dispatch control to the appropriate handler, which then
- * prints the appropriate page.
- */
+use Symfony\Component\HttpFoundation\Request;
 
-// Define the Drupal root directory.
-define('DRUPAL_ROOT', getcwd());
+// Update the autoloader path to go one level up to the root vendor directory
+$autoloader = require_once __DIR__ . '/../vendor/autoload.php';
 
-// Include the necessary bootstrap file.
-require_once DRUPAL_ROOT . '/includes/bootstrap.inc';
+$kernel = \Drupal\Core\DrupalKernel::createFromRequest(Request::createFromGlobals(), $autoloader, 'prod');
 
-// Bootstrap Drupal.
-drupal_bootstrap(DRUPAL_BOOTSTRAP_FULL);
+// Handle the request and generate the response.
+$request = Request::createFromGlobals();
+$response = $kernel->handle($request);
+$response->send();
 
-// Serve the requested page.
-menu_execute_active_handler();
+// After sending the response to the client, terminate the kernel.
+$kernel->terminate($request, $response);
