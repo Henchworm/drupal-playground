@@ -1,0 +1,7 @@
+name: 'Flashcard Game'
+type: module
+description: 'A custom module for a flashcard game.'
+core_version_requirement: ^9 || ^10
+package: Custom
+dependencies:
+  - drupal:system

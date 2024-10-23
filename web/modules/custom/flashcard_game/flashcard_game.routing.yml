@@ -1,0 +1,7 @@
+flashcard_game.play:
+  path: '/flashcard-game'
+  defaults:
+    _controller: '\Drupal\flashcard_game\Controller\FlashcardController::play'
+    _title: 'Flashcard Game'
+  requirements:
+    _permission: 'access content'
